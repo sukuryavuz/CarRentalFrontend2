@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="CarRentalFrontend2:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <exploded>false</exploded>
+        <module>CarRentalFrontend2</module>
+        <packaging>war</packaging>
+        <unpackNestedArchives>false</unpackNestedArchives>
+      </options>
+    </properties>
+    <root id="archive" name="CarRentalFrontend2-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="CarRentalFrontend2:war exploded" />
+    </root>
+  </artifact>
+</component>
