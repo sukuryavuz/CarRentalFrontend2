@@ -1,4 +1,7 @@
 // sobald sich der User einlogged, wird der username, die userID und der token im localstorage gespeichert
+let baseURL_dev_car = "http://localhost:8080/";
+let baseURL_dev_user = "http://localhost:8081/";
+let baseURL_prod = "https://carrentalgrup3.azurewebsites.net/";
 $(document).ready(function() {
     localStorage.setItem("selectedCurrency", "USD");
     var username, password, userID
@@ -11,7 +14,7 @@ $(document).ready(function() {
             $("#password").val("")
         } else {
             $.ajax({
-                url: "http://localhost:8080/register",
+                url: baseURL_dev_user + "register",
                 type: "POST",
                 contentType: 'application/json',
                 dataType: 'json',
@@ -21,7 +24,7 @@ $(document).ready(function() {
                 })
             }).done(function (responseJSON) {
                 userID = responseJSON.id
-                alert(userID + " registriert")
+                alert(userID + " registriert!!!!!")
                 $("#username").val('')
                 $("#password").val('')
             }).fail(function (xhr) {
@@ -36,7 +39,7 @@ function saveData(){
     var username = $("#username").val()
     var password = $("#password").val()
     $.ajax({
-        url: "http://localhost:8080/login",
+        url: baseURL_dev_user + "login",
         type: "POST",
         contentType: 'application/json',
         dataType: 'json',
@@ -46,13 +49,10 @@ function saveData(){
             "password": password
         })
     }).done(function (responseJSON) {
-        let userID = responseJSON.userId;
-        let jwtToken = responseJSON.jwtToken;
-        localStorage.setItem("userID", userID);
-        localStorage.setItem("username", username)
-        localStorage.setItem("token", "Bearer " + jwtToken);
-        console.log("Token: " + jwtToken)
-        //alert(responseJSON[0].id);
+        let id = responseJSON.id;
+        localStorage.setItem("id", id);
+        localStorage.setItem("username", username);
+        alert("username: " + username + " mit id: " + id + " eingelogged")
     }).fail(function (xhr) {
         alert(xhr.responseText);
         $("#username").val('')

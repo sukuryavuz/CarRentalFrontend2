@@ -1,7 +1,8 @@
 $(document).ready(function () {
-    console.log("userID: " + localStorage.getItem("userID"))
+ //   console.log("userID: " + localStorage.getItem("userID"))
+    console.log("id: " + localStorage.getItem("id"))
     console.log("username: " + localStorage.getItem("username"))
-    console.log(localStorage.getItem("token"))
+ //   console.log(localStorage.getItem("token"))
 });
 
 const DAYPRICE_COLUMNNUMBER = 4;
@@ -12,15 +13,15 @@ let baseURL_prod = "https://carrentalgrup3.azurewebsites.net/";
 
 function getAllCars() {
     let url, type;
-    url = baseURL_dev + "cars?currency=" + localStorage.getItem("selectedCurrency");
+    url = baseURL_dev_car + "cars?currency=" + localStorage.getItem("selectedCurrency") + "&userId=" + localStorage.getItem("id");
     type = "GET";
     $.ajax({
         url: url,
         type: type,
-        dataType: 'json',
-        headers: {
-            Authorization: localStorage.getItem("token")
-        }
+        dataType: 'json'
+//        headers: {
+//            Authorization: localStorage.getItem("token")
+//        }
     }).done(function (data) {
         if (data.length === 0) {
             $("#content").html('<h3>There are currently no cars to show</h3>')
@@ -45,15 +46,15 @@ function getAllCars() {
 
 function getAvailableCars() {
     let url, type;
-    url = baseURL_dev + "cars/availableCars?currency=" + localStorage.getItem("selectedCurrency");
+    url = baseURL_dev_car + "cars/availableCars?currency=" + localStorage.getItem("selectedCurrency") + "&userId=" + localStorage.getItem("id");
     type = "GET";
     $.ajax({
         url: url,
         type: type,
-        dataType: 'json',
-        headers: {
-            "Authorization": localStorage.getItem("token")
-        }
+        dataType: 'json'
+        // headers: {
+        //     "Authorization": localStorage.getItem("token")
+        // }
     }).done(function (data) {
         if (data.length === 0) {
             $("#content").html('<h3>There are currently no cars available.</h3>')
@@ -76,7 +77,6 @@ function getAvailableCars() {
     })
 }
 
-// @param carIDrent: ID of the car to be rented
 function rentCar(carIDrent) {
     let text = "Do you want to rent the Car with ID: " + carIDrent + "?"
     if (confirm(text) === true) {
