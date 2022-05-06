@@ -6,8 +6,9 @@ $(document).ready(function () {
 
 const DAYPRICE_COLUMNNUMBER = 4;
 const AVAILABLESEATS_COLUMNNUMBER = 2;
-let baseURL_dev = "http://localhost:8080/"
-let baseURL_prod = "https://carrentalgrup3.azurewebsites.net/"
+let baseURL_dev_car = "http://localhost:8080/";
+let baseURL_dev_user = "http://localhost:8081/";
+let baseURL_prod = "https://carrentalgrup3.azurewebsites.net/";
 
 function getAllCars() {
     let url, type;
