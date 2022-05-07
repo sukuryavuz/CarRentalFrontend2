@@ -131,7 +131,7 @@ function getCarDetails() {
     let url, type;
     let urlParams = getValueFromUrl();
     let id = urlParams.id;
-    url = baseURL_dev + "cars/" + id;
+    url = baseURL_dev_car + "cars/" + id + "&userId=" + localStorage.getItem("id");
     type = "GET";
     $.ajax({
         url: url,
@@ -154,7 +154,7 @@ function removeCar(carIDremove) {
     let text = "Do you want to give the Car with ID: " + carIDremove + " back?"
     if (confirm(text) === true) {
         $.ajax({
-            url: baseURL_dev_user + "users/" + localStorage.getItem("userID") + "/cars/" + carIDremove,
+            url: baseURL_dev_user + "users/" + localStorage.getItem("id") + "/cars/" + carIDremove,
             type: "DELETE"
             // headers: {
             //     Authorization: localStorage.getItem("token")
