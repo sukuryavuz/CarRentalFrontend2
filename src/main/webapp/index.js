@@ -1,4 +1,3 @@
-// sobald sich der User einlogged, wird der username, die userID und der token im localstorage gespeichert
 let baseURL_dev_car = "http://localhost:8080/";
 let baseURL_dev_user = "http://localhost:8081/";
 $(document).ready(function() {
@@ -22,10 +21,7 @@ $(document).ready(function() {
                     "password": password
                 })
             }).done(function (responseJSON) {
-                // id = responseJSON.id;
-                // localStorage.setItem("id", id);
-                // localStorage.setItem("username", username);
-                alert(" registriert!!!!!")
+                alert("You are registered and able to login now.")
                 $("#username").val('')
                 $("#password").val('')
             }).fail(function (xhr) {
@@ -49,14 +45,10 @@ function saveData(){
             "username": username,
             "password": password
         })
-        // headers: {
-        //     Authorization: localStorage.getItem("id")
-        // }
     }).done(function (responseJSON) {
         let id = responseJSON.id;
         localStorage.setItem("id", id);
         localStorage.setItem("username", username);
-        alert("username: " + username + " mit id: " + id + " eingelogged")
     }).fail(function (xhr) {
         alert(xhr.responseText);
         $("#username").val('')

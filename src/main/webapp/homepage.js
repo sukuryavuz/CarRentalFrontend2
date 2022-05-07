@@ -1,8 +1,6 @@
 $(document).ready(function () {
- //   console.log("userID: " + localStorage.getItem("userID"))
     console.log("id: " + localStorage.getItem("id"))
     console.log("username: " + localStorage.getItem("username"))
- //   console.log(localStorage.getItem("token"))
 });
 
 const DAYPRICE_COLUMNNUMBER = 4;
@@ -87,7 +85,7 @@ function getAvailableCars() {
 }
 
 function rentCar(carIDrent) {
-    let text = "Do you want to rent the Car with ID: " + carIDrent + "?"
+    let text = "Do you want to rent this Car?"
     if (confirm(text) === true) {
         $.ajax({
             url: baseURL_dev_user + "users/" + localStorage.getItem("id") + "/cars/" + carIDrent,
@@ -166,7 +164,7 @@ function getCarDetails() {
 
 // return car
 function removeCar(carIDremove) {
-    let text = "Do you want to give the Car with ID: " + carIDremove + " back?"
+    let text = "Do you want to give this Car back?"
     if (confirm(text) === true) {
         $.ajax({
             url: baseURL_dev_user + "users/" + localStorage.getItem("id") + "/cars/" + carIDremove,
@@ -314,7 +312,6 @@ function sortTableColumn(table, columnNumber) {
 
 function createDetailsLink(table) {
     let id, url, cell, rows;
-
     for (let i = 0; i < table.rows[0].cells.length; i++) {
         if (table.rows[0].cells[i].innerHTML === "id") {
             rows = table.rows;
@@ -347,7 +344,6 @@ function addClickListenerToSortColumn(table, columnId, columnNumber) {
 function initMap() {
     $("#content").html('<h3>Our Location</h3>');
     $("#map").css("display", "block");
-
     // The location of the company
     const companyLocation = {
         lat: 48.15809288969533,
@@ -367,8 +363,7 @@ function initMap() {
 
 function logout() {
     localStorage.removeItem("username");
-    localStorage.removeItem("userID")
-    localStorage.removeItem("token")
+    localStorage.removeItem("id")
 }
 
 function preventBack() {
