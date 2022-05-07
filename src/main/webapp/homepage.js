@@ -81,11 +81,11 @@ function rentCar(carIDrent) {
     let text = "Do you want to rent the Car with ID: " + carIDrent + "?"
     if (confirm(text) === true) {
         $.ajax({
-            url: baseURL_dev + "users/" + localStorage.getItem("userID") + "/cars/" + carIDrent,
-            type: "POST",
-            headers: {
-                Authorization: localStorage.getItem("token")
-            }
+            url: baseURL_dev_user + "users/" + localStorage.getItem("id") + "/cars/" + carIDrent,
+            type: "POST"
+            // headers: {
+            //     Authorization: localStorage.getItem("token")
+            // }
         }).done(function () {
             getAvailableCars();
         }).fail(function (xhr) {
@@ -96,15 +96,15 @@ function rentCar(carIDrent) {
 
 function getMyCars() {
     let url, type;
-    url = baseURL_dev + "users/" + localStorage.getItem("userID") + "/cars?currency=" + localStorage.getItem("selectedCurrency");
+    url = baseURL_dev_car + "users/" + localStorage.getItem("id") + "/cars?currency=" + localStorage.getItem("selectedCurrency");
     type = "GET";
     $.ajax({
         url: url,
         type: type,
-        dataType: 'json',
-        headers: {
-            Authorization: localStorage.getItem("token")
-        }
+        dataType: 'json'
+        // headers: {
+        //     Authorization: localStorage.getItem("token")
+        // }
     }).done(function (data) {
         if (data.length === 0) {
             $("#content").html('<h3>You have no cars rented</h3>')
@@ -154,11 +154,11 @@ function removeCar(carIDremove) {
     let text = "Do you want to give the Car with ID: " + carIDremove + " back?"
     if (confirm(text) === true) {
         $.ajax({
-            url: baseURL_dev + "users/" + localStorage.getItem("userID") + "/cars/" + carIDremove,
-            type: "DELETE",
-            headers: {
-                Authorization: localStorage.getItem("token")
-            }
+            url: baseURL_dev_user + "users/" + localStorage.getItem("userID") + "/cars/" + carIDremove,
+            type: "DELETE"
+            // headers: {
+            //     Authorization: localStorage.getItem("token")
+            // }
         }).done(function () {
             getMyCars();
         }).fail(function (xhr) {
@@ -172,9 +172,9 @@ function addRentOrRemoveButtons(table, data, rentOrRemove) {
         let row = table.rows[i];
         let cell = row.insertCell(-1);
         if (rentOrRemove === "rent") {
-            cell.innerHTML = '<button class="rentCarBtns" id="' + data[i - 1].id + '" onclick="rentCar(' + data[i - 1].id + ')">Rent Car</button>';
+            cell.innerHTML = '<button class="rentCarBtns" id="' + data[i - 1].id + '" onclick="rentCar(' + "'" + data[i - 1].id + "'" + ')">Rent Car</button>';
         } else if (rentOrRemove === "remove") {
-            cell.innerHTML = '<button class="giveCarBackBtns" id="' + data[i - 1].id + '" onclick="removeCar(' + data[i - 1].id + ')">Return Car</button>';
+            cell.innerHTML = '<button class="giveCarBackBtns" id="' + data[i - 1].id + '" onclick="removeCar(' + "'" + data[i - 1].id + "'" + ')">Return Car</button>';
         }
     }
 }

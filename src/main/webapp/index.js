@@ -1,7 +1,6 @@
 // sobald sich der User einlogged, wird der username, die userID und der token im localstorage gespeichert
 let baseURL_dev_car = "http://localhost:8080/";
 let baseURL_dev_user = "http://localhost:8081/";
-let baseURL_prod = "https://carrentalgrup3.azurewebsites.net/";
 $(document).ready(function() {
     localStorage.setItem("selectedCurrency", "USD");
     var username, password, userID
