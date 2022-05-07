@@ -26,10 +26,10 @@ select#currencyMyCars {
     margin-left: 4rem;
 }
 select#currencyAllCars {
-    margin-right: 1rem;
+    margin-left: 2rem;
 }
 select#currencyAvailableCars {
-    margin-left: 3rem;
+    margin-left: 3.5rem;
 }
 table#availableCars, table#allCarsId, table#myCars {
     margin-bottom: 3rem;

@@ -13,15 +13,15 @@ let baseURL_prod = "https://carrentalgrup3.azurewebsites.net/";
 
 function getAllCars() {
     let url, type;
-    url = baseURL_dev_car + "cars?currency=" + localStorage.getItem("selectedCurrency") + "&userId=" + localStorage.getItem("id");
+    url = baseURL_dev_car + "cars?currency=" + localStorage.getItem("selectedCurrency");
     type = "GET";
     $.ajax({
         url: url,
         type: type,
-        dataType: 'json'
-//        headers: {
-//            Authorization: localStorage.getItem("token")
-//        }
+        dataType: 'json',
+        headers: {
+            Authorization: localStorage.getItem("id")
+        }
     }).done(function (data) {
         if (data.length === 0) {
             $("#content").html('<h3>There are currently no cars to show</h3>')
@@ -31,7 +31,11 @@ function getAllCars() {
             createDetailsLink(document.getElementById("allCarsId"));
             createDropDownWithCurrencies("allCarsId", "currencyAllCars", getAllCars);
             $("select option[value='" + localStorage.getItem("selectedCurrency") + "']").attr("selected", "selected")
-            $("td:last-child").after("<td></td>")
+            $("table[id='allCarsId'] tr th:nth-child(2)").hide();
+            $("table[id='allCarsId'] tr td:nth-child(2)").hide();
+            $("table[id='allCarsId'] tr th:nth-child(6)").hide();
+            $("table[id='allCarsId'] tr td:nth-child(6)").hide();
+            $("table[id='allCarsId'] tr td:last-child").after("<td></td>");
         }
     }).fail(function (xhr) {
         if (xhr.status === 500) {
@@ -46,15 +50,15 @@ function getAllCars() {
 
 function getAvailableCars() {
     let url, type;
-    url = baseURL_dev_car + "cars/availableCars?currency=" + localStorage.getItem("selectedCurrency") + "&userId=" + localStorage.getItem("id");
+    url = baseURL_dev_car + "cars/availableCars?currency=" + localStorage.getItem("selectedCurrency");
     type = "GET";
     $.ajax({
         url: url,
         type: type,
-        dataType: 'json'
-        // headers: {
-        //     "Authorization": localStorage.getItem("token")
-        // }
+        dataType: 'json',
+        headers: {
+            "Authorization": localStorage.getItem("id")
+        }
     }).done(function (data) {
         if (data.length === 0) {
             $("#content").html('<h3>There are currently no cars available.</h3>')
@@ -65,6 +69,11 @@ function getAvailableCars() {
             addRentOrRemoveButtons(table, data, "rent");
             createDropDownWithCurrencies("availableCars", "currencyAvailableCars", getAvailableCars);
             $("select option[value='" + localStorage.getItem("selectedCurrency") + "']").attr("selected", "selected")
+            $("table[id='availableCars'] tr th:nth-child(2)").hide();
+            $("table[id='availableCars'] tr td:nth-child(2)").hide();
+            $("table[id='availableCars'] tr th:nth-child(6)").hide();
+            $("table[id='availableCars'] tr td:nth-child(6)").hide();
+            $("table[id='availableCars'] tr td:last-child").after("<td></td>");
         }
     }).fail(function (xhr) {
         if (xhr.status === 500) {
@@ -82,10 +91,10 @@ function rentCar(carIDrent) {
     if (confirm(text) === true) {
         $.ajax({
             url: baseURL_dev_user + "users/" + localStorage.getItem("id") + "/cars/" + carIDrent,
-            type: "POST"
-            // headers: {
-            //     Authorization: localStorage.getItem("token")
-            // }
+            type: "POST",
+            headers: {
+                Authorization: localStorage.getItem("id")
+            }
         }).done(function () {
             getAvailableCars();
         }).fail(function (xhr) {
@@ -101,10 +110,10 @@ function getMyCars() {
     $.ajax({
         url: url,
         type: type,
-        dataType: 'json'
-        // headers: {
-        //     Authorization: localStorage.getItem("token")
-        // }
+        dataType: 'json',
+        headers: {
+            Authorization: localStorage.getItem("id")
+        }
     }).done(function (data) {
         if (data.length === 0) {
             $("#content").html('<h3>You have no cars rented</h3>')
@@ -115,6 +124,12 @@ function getMyCars() {
             addRentOrRemoveButtons(table, data, "remove");
             createDropDownWithCurrencies("myCars", "currencyMyCars", getMyCars);
             $("select option[value='" + localStorage.getItem("selectedCurrency") + "']").attr("selected", "selected")
+            $("table[id='myCars'] tr th:nth-child(2)").hide();
+            $("table[id='myCars'] tr td:nth-child(2)").hide();
+            $("table[id='myCars'] tr th:nth-child(6)").hide();
+            $("table[id='myCars'] tr td:nth-child(6)").hide();
+            $("#table[id='myCars'] tr td:last-child").after("<td></td>");
+
         }
     }).fail(function (xhr) {
         if (xhr.status === 500) {
@@ -131,14 +146,14 @@ function getCarDetails() {
     let url, type;
     let urlParams = getValueFromUrl();
     let id = urlParams.id;
-    url = baseURL_dev_car + "cars/" + id + "&userId=" + localStorage.getItem("id");
+    url = baseURL_dev_car + "cars/" + id;
     type = "GET";
     $.ajax({
         url: url,
         type: type,
         dataType: 'json',
         headers: {
-            Authorization: localStorage.getItem("token")
+            Authorization: localStorage.getItem("id")
         }
     }).done(function (data) {
         let description = document.getElementById("imageDescription");
@@ -155,10 +170,10 @@ function removeCar(carIDremove) {
     if (confirm(text) === true) {
         $.ajax({
             url: baseURL_dev_user + "users/" + localStorage.getItem("id") + "/cars/" + carIDremove,
-            type: "DELETE"
-            // headers: {
-            //     Authorization: localStorage.getItem("token")
-            // }
+            type: "DELETE",
+            headers: {
+                Authorization: localStorage.getItem("id")
+            }
         }).done(function () {
             getMyCars();
         }).fail(function (xhr) {
@@ -274,17 +289,6 @@ function addCarPicture(table) {
         cell.innerHTML = '<img src="images/audiq5.png" alt="">';
     }
 }
-
-// function addOnclickToSortTableByColumnName(table, columnName) {
-//     for (let i = 0; i < table.rows[0].cells.length; i++) {
-//         if (table.rows[0].cells[i].innerHTML === columnName) {
-//             let cell = table.rows[0].cells[i];
-//             cell.onclick = function () {
-//                 sortTableColumn(table, i);
-//             }
-//         }
-//     }
-// }
 
 function sortTableColumn(table, columnNumber) {
     var rows, switching, i, x, y, shouldSwitch;

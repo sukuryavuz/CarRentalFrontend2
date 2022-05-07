@@ -3,7 +3,7 @@ let baseURL_dev_car = "http://localhost:8080/";
 let baseURL_dev_user = "http://localhost:8081/";
 $(document).ready(function() {
     localStorage.setItem("selectedCurrency", "USD");
-    var username, password, userID
+    var username, password, id
     $("#register").on("click", function () {
         username = $("#username").val()
         password = $("#password").val()
@@ -22,8 +22,10 @@ $(document).ready(function() {
                     "password": password
                 })
             }).done(function (responseJSON) {
-                userID = responseJSON.id
-                alert(userID + " registriert!!!!!")
+                // id = responseJSON.id;
+                // localStorage.setItem("id", id);
+                // localStorage.setItem("username", username);
+                alert(" registriert!!!!!")
                 $("#username").val('')
                 $("#password").val('')
             }).fail(function (xhr) {
@@ -47,6 +49,9 @@ function saveData(){
             "username": username,
             "password": password
         })
+        // headers: {
+        //     Authorization: localStorage.getItem("id")
+        // }
     }).done(function (responseJSON) {
         let id = responseJSON.id;
         localStorage.setItem("id", id);
