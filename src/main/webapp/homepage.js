@@ -26,7 +26,7 @@ function getAllCars() {
         } else {
             createTable(data, "allCarsId");
             $("#allCarsId").before("<h3>All of our cars</h3>")
-            createDetailsLink(document.getElementById("allCarsId"));
+         //   createDetailsLink(document.getElementById("allCarsId"));
             createDropDownWithCurrencies("allCarsId", "currencyAllCars", getAllCars);
             $("select option[value='" + localStorage.getItem("selectedCurrency") + "']").attr("selected", "selected")
             $("table[id='allCarsId'] tr th:nth-child(2)").hide();
@@ -310,20 +310,20 @@ function sortTableColumn(table, columnNumber) {
     }
 }
 
-function createDetailsLink(table) {
-    let id, url, cell, rows;
-    for (let i = 0; i < table.rows[0].cells.length; i++) {
-        if (table.rows[0].cells[i].innerHTML === "id") {
-            rows = table.rows;
-            for (let j = 1; j < rows.length; j++) {
-                id = Number(rows[j].getElementsByTagName("TD")[i].innerHTML);
-                cell = table.rows[j].insertCell(-1);
-                url = "car.html?id=" + id;
-                cell.innerHTML = '<a href='+url+'>See Details</a>'
-            }
-        }
-    }
-}
+// function createDetailsLink(table) {
+//     let id, url, cell, rows;
+//     for (let i = 0; i < table.rows[0].cells.length; i++) {
+//         if (table.rows[0].cells[i].innerHTML === "id") {
+//             rows = table.rows;
+//             for (let j = 1; j < rows.length; j++) {
+//                 id = Number(rows[j].getElementsByTagName("TD")[i].innerHTML);
+//                 cell = table.rows[j].insertCell(-1);
+//                 url = "car.html?id=" + id;
+//                 cell.innerHTML = '<a href='+url+'>See Details</a>'
+//             }
+//         }
+//     }
+// }
 
 function getValueFromUrl() {
     return new Proxy(new URLSearchParams(window.location.search), {
